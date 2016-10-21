@@ -17,7 +17,7 @@ class CorsaroNero(TorrentMagnetProvider, MovieProvider):
 		'test': 'http://ilcorsaronero.info',
 		'base_url': 'http://ilcorsaronero.info',
 		'detail': 'http://ilcorsaronero.info/tor/%d/%s',
-		'search': 'http://ilcorsaronero.info/torrent-ita/%d/%s.html',
+		'search': 'http://ilcorsaronero.info/argh.php?search=%s',
 	}
 
 	cat_ids = [
@@ -36,8 +36,8 @@ class CorsaroNero(TorrentMagnetProvider, MovieProvider):
 		simpletitle = simplifyString(title)
 		cat = self.getCatId(quality)
 
-		log.debug("Searching in CorSaRoNero category: %s" % cat)
-		data = self.getHTMLData(self.urls['search'] % (cat, tryUrlencode(simpletitle)))
+		log.debug("Searching in CorSaRoNero title: %s" % (tryUrlencode(simpletitle)))
+		data = self.getHTMLData(self.urls['search'] % (tryUrlencode(simpletitle)))
 
 		if 'Nessus torrent trovato!!!!' in data:
 			log.info("No torrents found for %s on ilCorsaroNero.info.", title)
